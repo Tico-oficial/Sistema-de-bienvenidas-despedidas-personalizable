@@ -1,0 +1,27 @@
+PREFIJO: El que quieras
+
+===================CÓDIGO:===================
+
+
+$nomention
+$title[⚙️ | Configuración de bienvenidas y despedidas]
+$description[Este es el apartado para poder configurar tu sistema de bienvenida y despedidas.
+
+Podrás configurar el mensaje que queres que se muestre y en canal de bienvenida/despedida.
+
+También hay palabras claves para personalizar aun más, se pueden usar en **titulo, descripción y footer**]
+$addField[{tagg-user};
+Para etiquetar al usuario que entra/sale del servidor]
+$addField[{nombre-servidor};
+Para que se muestre el nombre de tu servidor]
+$addField[{miembros};
+Para mostrar la cantidad de miembros en tu servidor]
+$footer[Creditos @Tico]
+$color[6e00ff]
+$newSelectMenu[set-b-i;0;1;⚙️ | Configuración;]
+$addSelectMenuOption[set-b-i;Mensaje de bienvenida;m-b;Configura el mensaje de bienvenida;;🛬;]
+$addSelectMenuOption[set-b-i;Canal de bienvenida;canal-b;Configura el canal de bienvenida;;✉️;]
+$addSelectMenuOption[set-b-i;Auto-rol al entrar;rol;Configura un auto-rol al entrar al servidor;;🛠️;]
+$addSelectMenuOption[set-b-i;Mensaje de despedida;m-i;Configura el mensaje de despedida;;🛫;]
+$addSelectMenuOption[set-b-i;Canal de despedida;canal-i;Configura el canal de despedida;;✉️;]
+$addSelectMenuOption[set-b-i;Ver configuración;conf;Mira la configuración actual;;👀;]
