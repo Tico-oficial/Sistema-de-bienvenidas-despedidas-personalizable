@@ -1,0 +1,18 @@
+PREFIJO: $onJoined[$getServerVar[canal-b]]
+
+
+==============CÓDIGO:===================
+
+
+$nomention
+$jsonParse[$getUserVar[bienvenida-id;$botID;$guildID]]
+$title[$replaceText[$replaceText[$replaceText[$json[titulo];{tagg-user};$displayName[$authorID];-1];{nombre-servidor};$serverName[$guildID];-1];{miembros};$membersCount;-1]]
+$description[$replaceText[$replaceText[$replaceText[$json[descripcion];{tagg-user};<@$authorID>;-1];{nombre-servidor};$serverName[$guildID];-1];{miembros};$membersCount;-1]]
+$image[$json[imagen]]
+$footer[$replaceText[$replaceText[$replaceText[$json[footer];{tagg-user};$displayName[$authorID];-1];{nombre-servidor};$serverName[$guildID];-1];{miembros};$membersCount;-1]]
+$footerIcon[$serverIcon]
+$color[$json[color]]
+
+$if[$roleExists[$json[rol]]==true]
+$roleGrant[$authorID;+$json[rol]]
+$endif
