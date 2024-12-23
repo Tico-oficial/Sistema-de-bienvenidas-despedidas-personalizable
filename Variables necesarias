@@ -1,0 +1,26 @@
+1:
+Nombre: bienvenida-id
+Valor=
+{
+"titulo": "No configurado", 
+"descripcion": "No configurado", 
+"imagen": "", 
+"footer": "No configurado" ,
+"color": "6e00ff", 
+"rol": "" ,
+"titulo-i": "No configurado", 
+"descripcion-i": "No configurado", 
+"imagen-i": "", 
+"footer-i": "No configurado" ,
+"color-i": "ff0000"}
+
+
+
+2:
+Nombre: canal-b
+Valor=
+
+
+3:
+Nombre: canal-i
+Valor=
