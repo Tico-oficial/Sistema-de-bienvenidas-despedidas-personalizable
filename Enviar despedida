@@ -1,0 +1,14 @@
+PREFIJO: $onLeave[$getServerVar[canal-i]]
+
+
+==============CÓDIGO:===================
+
+
+$nomention
+$jsonParse[$getUserVar[bienvenida-id;$botID;$guildID]]
+$title[$replaceText[$replaceText[$replaceText[$json[titulo-i];{tagg-user};$displayName[$authorID];-1];{nombre-servidor};$serverName[$guildID];-1];{miembros};$membersCount;-1]]
+$description[$replaceText[$replaceText[$replaceText[$json[descripcion-i];{tagg-user};<@$authorID>;-1];{nombre-servidor};$serverName[$guildID];-1];{miembros};$membersCount;-1]]
+$image[$json[imagen-i]]
+$footer[$replaceText[$replaceText[$replaceText[$json[footer-i];{tagg-user};$displayName[$authorID];-1];{nombre-servidor};$serverName[$guildID];-1];{miembros};$membersCount;-1]]
+$footerIcon[$serverIcon]
+$color[$json[color-i]]
