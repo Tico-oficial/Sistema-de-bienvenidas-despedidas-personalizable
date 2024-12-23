@@ -1,0 +1,192 @@
+PREFIJO: $onInteraction
+
+
+==========CÓDIGO:==================
+
+
+$nomention
+$onlyIf[$or[$customID==bie;$customID==des;$customID==set-b-i;$customID==modal-conf]==true;]
+
+$if[$customID==set-b-i]
+
+$if[$message==m-b]
+$newModal[modal-conf;🛬 | Mensaje de bienvenida]
+$addTextInput[t;short;Titulo;;;no;;]
+$addTextInput[d;paragraph;Descripción;;;no;;]
+$addTextInput[i;short;Imagen;;;no;;]
+$addTextInput[f;short;Footer;;;no;;]
+$addTextInput[c;short;Color;;;no;;]
+
+$elseif[$message==m-i]
+$newModal[modal-conf;🛫 | Mensaje de ida]
+$addTextInput[t-i;short;Titulo;;;no;;]
+$addTextInput[d-i;paragraph;Descripción;;;no;;]
+$addTextInput[i-i;short;Imagen;;;no;;]
+$addTextInput[f-i;short;Footer;;;no;;]
+$addTextInput[c-i;short;Color;;;no;;]
+
+$elseif[$message==rol]
+$newModal[modal-conf;🛠️ | Rol a dar]
+$addTextInput[rol;short;ID del rol;;;yes;;Ejemplo: 122420083737372]
+
+$elseif[$message==canal-b]
+$newModal[modal-conf;✉️ | Canal de bienvenida]
+$addTextInput[canal-b;short;ID del canal;;;yes;;Ejemplo: 1222839008383]
+
+$elseif[$message==canal-i]
+$newModal[modal-conf;✉️ | Canal de ida]
+$addTextInput[canal-i;short;ID del canal;;;yes;;Ejemplo: 1222839008383]
+
+$elseif[$message==conf]
+$removeAllComponents
+$ephemeral
+$jsonParse[$getUserVar[bienvenida-id;$botID;$guildID]]
+$title[👀 | Configuración actual]
+$addField[🛠️ |Auto-rol;
+$replaceText[<@&$json[rol]>;<@&>;Ningún rol configurado;-1]]
+$addField[🛬 | Canal de bienvenidas;
+$replaceText[<#$getServerVar[canal-b;$guildID]>;<#>;Ningún canal configurado;-1]]
+$addField[🛫 | Canal de despedidas;
+$replaceText[<#$getServerVar[canal-i;$guildID]>;<#>;Ningún canal configurado;-1]]
+$footer[Creditos @Tico]
+$footerIcon[$serverIcon]
+$color[6e00ff]
+$addButton[no;bie;Mensaje de bienvenida;secondary;;🛬;]
+$addButton[no;des;Mensaje de despedida;secondary;;🛫;]
+$endif
+
+$elseif[$customID==modal-conf]
+
+$jsonParse[$getUserVar[bienvenida-id;$botID;$guildID]]
+$if[$input[t]!=]
+$jsonSetString[titulo;$input[t]]
+$endif
+$if[$input[d]!=]
+$jsonSetString[descripcion;$input[d]]
+$endif
+$if[$input[i]!=]
+$jsonSetString[imagen;$input[i]]
+$endif
+$if[$input[f]!=]
+$jsonSetString[footer;$input[f]]
+$endif
+$if[$input[c]!=]
+$if[$isValidHex[$input[c]]==true]
+$jsonSetString[color;$input[c]]
+$else
+$addField[❌ | Error;
+Formato hexadecimal invalido
+
+Ejemplo: ff0000]
+$color[ff0000]
+$endif
+$endif
+
+$if[$input[t-i]!=]
+$jsonSetString[titulo-i;$input[t-i]]
+$endif
+$if[$input[d-i]!=]
+$jsonSetString[descripcion-i;$input[d-i]]
+$endif
+$if[$input[i-i]!=]
+$jsonSetString[imagen-i;$input[i-i]]
+$endif
+$if[$input[f-i]!=]
+$jsonSetString[footer-i;$input[f-i]]
+$endif
+$if[$input[c-i]!=]
+$if[$isValidHex[$input[c-i]]==true]
+$jsonSetString[color-i;$input[c-i]]
+$else
+$addField[❌ | Error;
+Formato hexadecimal invalido
+
+Ejemplo: ff0000]
+$color[ff0000]
+$endif
+$endif
+
+$setUserVar[bienvenida-id;$jsonStringify;$botID;$guildID]
+
+$jsonParse[$getUserVar[bienvenida-id;$botID;$guildID]]
+$if[$and[$input[canal-i]==;$input[canal-b]==;$input[rol]==;$input[t-1]==;$input[d-i]==;$input[i-i]==;$input[f-i]==;$input[c-i]==]==true]
+👀 | VISTA PREVIA
+$title[$replaceText[$replaceText[$replaceText[$json[titulo];{tagg-user};$displayName[$authorID];-1];{nombre-servidor};$serverName[$guildID];-1];{miembros};$membersCount;-1]]
+$description[$replaceText[$replaceText[$replaceText[$json[descripcion];{tagg-user};<@$authorID>;-1];{nombre-servidor};$serverName[$guildID];-1];{miembros};$membersCount;-1]]
+$image[$json[imagen]]
+$footer[$replaceText[$replaceText[$replaceText[$json[footer];{tagg-user};$displayName[$authorID];-1];{nombre-servidor};$serverName[$guildID];-1];{miembros};$membersCount;-1]]
+$footerIcon[$serverIcon]
+$color[$json[color]]
+$elseif[$and[$input[canal-i]==;$input[canal-b]==;$input[rol]==]==true]
+👀 | VISTA PREVIA
+$title[$replaceText[$replaceText[$replaceText[$json[titulo-i];{tagg-user};$displayName[$authorID];-1];{nombre-servidor};$serverName[$guildID];-1];{miembros};$membersCount;-1]]
+$description[$replaceText[$replaceText[$replaceText[$json[descripcion-i];{tagg-user};<@$authorID>;-1];{nombre-servidor};$serverName[$guildID];-1];{miembros};$membersCount;-1]]
+$image[$json[imagen-i]]
+$footer[$replaceText[$replaceText[$replaceText[$json[footer-i];{tagg-user};$displayName[$authorID];-1];{nombre-servidor};$serverName[$guildID];-1];{miembros};$membersCount;-1]]
+$footerIcon[$serverIcon]
+$color[$json[color-i]]
+$endif
+
+$if[$input[rol]!=]
+$jsonParse[$getUserVar[bienvenida-id;$botID;$guildID]]
+$if[$roleExists[$input[rol]]==true]
+$jsonSetString[rol;$input[rol]]
+$addField[✅ | Rol configurado;
+Configuraste correctamente el rol <@&$input[rol]>, este rol se le dará al usuario cuando ingrese al servidor]
+$color[00ff00]
+$else
+$addField[❌ | Error;
+El rol no existe]
+$color[ff0000]
+$endif
+$setUserVar[bienvenida-id;$jsonStringify;$botID;$guildID]
+$endif
+
+$if[$input[canal-b]!=]
+$jsonParse[$getUserVar[bienvenida-id;$botID;$guildID]]
+$if[$channelExists[$input[canal-b]]==true]
+$setServerVar[canal-b;$input[canal-b];$guildID]
+$addField[✅ Canal configurado;
+Se configuró correctamente el canal <#$input[canal-b]> como el canal de bienvenidas]
+$color[00ff00]
+$else
+$addField[❌ | Error;
+El canal de bienvenida no existe]
+$color[ff0000]
+$endif
+$endif
+
+$if[$input[canal-i]!=]
+$jsonParse[$getUserVar[bienvenida-id;$botID;$guildID]]
+$if[$channelExists[$input[canal-i]]==true]
+$setServerVar[canal-i;$input[canal-i];$guildID]
+$addField[✅ Canal configurado;
+Se configuró correctamente el canal <#$input[canal-i]> como el canal de bienvenidas]
+$color[00ff00]
+$else
+$addField[❌ | Error;
+El canal de bienvenida no existe]
+$color[ff0000]
+$endif
+$endif
+
+$elseif[$customID==bie]
+$jsonParse[$getUserVar[bienvenida-id;$botID;$guildID]]
+👀 | VISTA PREVIA MENSAJE DE BIENVENIDA
+$title[$replaceText[$replaceText[$replaceText[$json[titulo];{tagg-user};$displayName[$authorID];-1];{nombre-servidor};$serverName[$guildID];-1];{miembros};$membersCount;-1]]
+$description[$replaceText[$replaceText[$replaceText[$json[descripcion];{tagg-user};<@$authorID>;-1];{nombre-servidor};$serverName[$guildID];-1];{miembros};$membersCount;-1]]
+$image[$json[imagen]]
+$footer[$replaceText[$replaceText[$replaceText[$json[footer];{tagg-user};$displayName[$authorID];-1];{nombre-servidor};$serverName[$guildID];-1];{miembros};$membersCount;-1]]
+$footerIcon[$serverIcon]
+$color[$json[color]]
+
+$elseif[$customID==des]
+$jsonParse[$getUserVar[bienvenida-id;$botID;$guildID]]
+👀 | VISTA PREVIA MENSAJE DE DESPEDIDA
+$title[$replaceText[$replaceText[$replaceText[$json[titulo-i];{tagg-user};$displayName[$authorID];-1];{nombre-servidor};$serverName[$guildID];-1];{miembros};$membersCount;-1]]
+$description[$replaceText[$replaceText[$replaceText[$json[descripcion-i];{tagg-user};<@$authorID>;-1];{nombre-servidor};$serverName[$guildID];-1];{miembros};$membersCount;-1]]
+$image[$json[imagen-i]]
+$footer[$replaceText[$replaceText[$replaceText[$json[footer-i];{tagg-user};$displayName[$authorID];-1];{nombre-servidor};$serverName[$guildID];-1];{miembros};$membersCount;-1]]
+$footerIcon[$serverIcon]
+$color[$json[color-i]]
+$endif
